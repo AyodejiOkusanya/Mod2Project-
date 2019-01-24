@@ -1,0 +1,122 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href=<%= posts_path %>>Michelin Meals</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href= <%= posts_path %>> See all posts <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item active">
+        <a class="nav-link" href= <%= new_post_path %>> Create New Post <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+
+
+
+
+
+
+
+      </li>
+    </ul>
+
+  </div>
+</nav>
+
+<%= form_tag '/logout', method: "post" do %>
+<%= submit_tag "Sign Out" %>
+<% end %>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<h1>Welcome to Michelin Meals <%= @user.username %> </h1>
+
+
+
+
+
+<h2> My Food Blogs and Recipes </h2>
+
+<% @user.posts.each do |post| %> </p>
+<p> <%= link_to post.title, post_path(post), :class => 'ui button' %> </p>
+<% end %>
+
+
+<div class="ui card">
+  <div class="image">
+    <img src= <%= @user.img_url %>>
+  </div>
+  <div class="content">
+    <a class="header"> <%= @user.username %></a>
+    <div class="meta">
+      <span class="date"></span>
+    </div>
+    <div class="description">
+      Michelin Meals member
+    </div>
+  </div>
+  <div class="extra content">
+    <a>
+      <i class="user icon"></i>
+      <%= @user.received_messages.count %> messages in your inbox
+    </a>
+  </div>
+</div>
+
+
+<li style="width: 500px" class="list-group-item active">Received Messages:</li>
+<% @user.received_messages.reverse_each do |u| %>
+  <ul class="list-group">
+
+    <div style="width: 400px" class="ui message">
+    <div class="header">
+      <p>From: <%= u.sender.username %></p>
+    </div>
+    <p><%= u.content %></p>
+  </div>
+  </ul>
+  <% end %>
+
+
+
+
+
+
+      <li style="width: 500px" class="list-group-item active">Sent Messages:</li>
+      <% @user.sent_messages.reverse_each do |u| %>
+        <ul class="list-group">
+
+          <div style="width: 400px" class="ui message">
+          <div class="header">
+            <p>To: <%= u.receiver.username %> </p>
+          </div>
+          <p><%= u.content %></p>
+        </div>
+        </ul>
+        <% end %>
